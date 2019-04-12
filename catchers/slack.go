@@ -3,10 +3,8 @@ package catchers
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"github.com/pkg/errors"
 	"net/http"
-	"net/http/httputil"
 	"time"
 )
 
@@ -43,12 +41,7 @@ func (s Slack) HandlePanic(message string) error {
 		return err
 	}
 	res, err := s.httpClient.Do(req)
-
-	br, _ := httputil.DumpRequest(req, true)
-	fmt.Println(string(br))
-
-	st, _ := httputil.DumpResponse(res, true)
-	fmt.Println(string(st))
+	
 	if err != nil {
 		return ErrSlackCallFailed
 	}
