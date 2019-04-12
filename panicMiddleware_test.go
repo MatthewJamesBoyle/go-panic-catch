@@ -40,8 +40,7 @@ func TestCatchPanicMiddleware(t *testing.T) {
 		PanicMiddleware(log, "", http.HandlerFunc(fn)).ServeHTTP(w, req)
 
 	})
-
-	//TODO: uncomment this test and add a webhook url to test it. It will show up in your slack :)
+	// Todo: add a webhook url below and run this test to watch the panic appear in slack :) 
 	//t.Run("test slack handler", func(t *testing.T) {
 	//	fn := func(writer http.ResponseWriter, req *http.Request) {
 	//		panic("ut oh")
@@ -50,7 +49,7 @@ func TestCatchPanicMiddleware(t *testing.T) {
 	//	req := httptest.NewRequest("GET", "/aPath", nil)
 	//	w := httptest.NewRecorder()
 	//	slack := catchers.NewSlack("")
-	//	PanicMiddleware(*slack, "message", http.HandlerFunc(fn)).ServeHTTP(w, req)
+	//	PanicMiddleware(*slack, "you just panicked!", http.HandlerFunc(fn)).ServeHTTP(w, req)
 	//
 	//})
 }

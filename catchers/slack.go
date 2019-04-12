@@ -38,14 +38,13 @@ func (s Slack) HandlePanic(message string) error {
 		return err
 	}
 
-	fmt.Println(string(b))
 	req, err := http.NewRequest("POST", s.webhookUrl, bytes.NewBuffer(b))
 	if err != nil {
 		return err
 	}
 	res, err := s.httpClient.Do(req)
 
-	br,_:= httputil.DumpRequest(req, true)
+	br, _ := httputil.DumpRequest(req, true)
 	fmt.Println(string(br))
 
 	st, _ := httputil.DumpResponse(res, true)
