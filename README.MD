@@ -8,5 +8,46 @@ To install it:
 
 And then to use it:
 ```
+package awesomeProject
+
+import (
+	"github.com/matthewJamesBoyle/go-panic-catch"
+	"github.com/matthewJamesBoyle/go-panic-catch/catchers"
+	"net/http"
+)
+
+func main() {
+	fn := func(writer http.ResponseWriter, req *http.Request) {
+		panic("ut oh")
+	}
+
+	//something that satisfies panicHandler interface
+	slack := catchers.NewSlack("some-webhook-url")
+
+	server := &http.Server{
+		Handler: goCatch.PanicMiddleware(*slack, "recovering from panic will write this to slack", http.HandlerFunc(fn)),
+	}
+
+	server.ListenAndServe()
+}
 
 ```
+
+It should also work with all the popular web servers such as guerrilla mux and gin.
+
+go-panic-catch currently comes with two "catchers" that handle panics.
+* slack catcher - will write a message to slack everytime your web server panics
+* log - Logs "message" every time there is a panic.
+
+Want to implement your own handler? Simply implement the following interface:
+```
+type PanicHandler interface {
+	HandlePanic(message string) error
+}
+```
+
+Some ideas for other handlers:
+* email everytime there is a panic.
+* increment a prometheus counter.
+
+(contributions appreciated if you want to work on these and contribute them back to this project!)

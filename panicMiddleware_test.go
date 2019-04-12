@@ -2,7 +2,7 @@ package goCatch
 
 import (
 	"fmt"
-	"github.com/matthewJamesBoyle/go-panic-catch/catchers"
+	"github.com/MatthewJamesBoyle/go-panic-catch/catchers"
 	"net/http"
 	"net/http/httptest"
 	"testing"
