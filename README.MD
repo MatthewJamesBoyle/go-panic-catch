@@ -1,18 +1,18 @@
-#go-panic-catch
+# go-panic-catch
 
 go-panic-catch is a simple middleware that recovers from panics and enables you to handle panics gracefully.
 
 To install it:
 
-```https://github.com/MatthewJamesBoyle/go-panic-catch```
+```https://github.com/matthewjamesboyle/go-panic-catch```
 
 And then to use it:
 ```
 package awesomeProject
 
 import (
-	"github.com/matthewJamesBoyle/go-panic-catch"
-	"github.com/matthewJamesBoyle/go-panic-catch/catchers"
+	"github.com/matthewjamesboyle/go-panic-catch"
+	"github.com/matthewjamesboyle/go-panic-catch/catchers"
 	"net/http"
 )
 
