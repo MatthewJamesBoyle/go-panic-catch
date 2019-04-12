@@ -2,14 +2,21 @@ package catchers
 
 import (
 	"bytes"
+	"encoding/json"
+	"fmt"
 	"github.com/pkg/errors"
 	"net/http"
+	"net/http/httputil"
 	"time"
 )
 
 var (
 	ErrSlackCallFailed = errors.New("Slack Call failed")
 )
+
+type slackMessage struct {
+	Message string `json:"text"`
+}
 
 type Slack struct {
 	webhookUrl string
@@ -25,11 +32,26 @@ func NewSlack(webhookurl string) *Slack {
 	}
 }
 
-func (s Slack) Handle(message string) error {
-	req, err := http.NewRequest("POST", s.webhookUrl, bytes.NewBuffer([]byte(message)))
+func (s Slack) HandlePanic(message string) error {
+	b, err := json.Marshal(slackMessage{Message: message})
 	if err != nil {
 		return err
 	}
-	_, err = s.httpClient.Do(req)
-	return ErrSlackCallFailed
+
+	fmt.Println(string(b))
+	req, err := http.NewRequest("POST", s.webhookUrl, bytes.NewBuffer(b))
+	if err != nil {
+		return err
+	}
+	res, err := s.httpClient.Do(req)
+
+	br,_:= httputil.DumpRequest(req, true)
+	fmt.Println(string(br))
+
+	st, _ := httputil.DumpResponse(res, true)
+	fmt.Println(string(st))
+	if err != nil {
+		return ErrSlackCallFailed
+	}
+	return err
 }

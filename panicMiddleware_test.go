@@ -2,7 +2,7 @@ package goCatch
 
 import (
 	"fmt"
-	"github.com/matthewJamesBoyle/go-panic-catch/goCatchHandler"
+	"github.com/matthewJamesBoyle/go-panic-catch/catchers"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -40,4 +40,17 @@ func TestCatchPanicMiddleware(t *testing.T) {
 		PanicMiddleware(log, "", http.HandlerFunc(fn)).ServeHTTP(w, req)
 
 	})
+
+	//TODO: uncomment this test and add a webhook url to test it. It will show up in your slack :)
+	//t.Run("test slack handler", func(t *testing.T) {
+	//	fn := func(writer http.ResponseWriter, req *http.Request) {
+	//		panic("ut oh")
+	//	}
+	//
+	//	req := httptest.NewRequest("GET", "/aPath", nil)
+	//	w := httptest.NewRecorder()
+	//	slack := catchers.NewSlack("")
+	//	PanicMiddleware(*slack, "message", http.HandlerFunc(fn)).ServeHTTP(w, req)
+	//
+	//})
 }
