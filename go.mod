@@ -1,4 +1,4 @@
-module github.com/matthewJamesBoyle/go-panic-catch
+module github.com/MatthewJamesBoyle/go-panic-catch
 
 require (
 	bitbucket.org/curvecard/go-curve v0.0.0-20190411094713-07b677da4a69

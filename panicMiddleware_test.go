@@ -15,11 +15,12 @@ func TestCatchPanicMiddleware(t *testing.T) {
 			writer.WriteHeader(http.StatusTeapot)
 			writer.Write([]byte("some-string"))
 		}
-
 		req := httptest.NewRequest("GET", "/aPath", nil)
 		w := httptest.NewRecorder()
 		log := catchers.Log{}
+
 		PanicMiddleware(log, "", http.HandlerFunc(fn)).ServeHTTP(w, req)
+
 		if w.Code != http.StatusTeapot {
 			t.Fatal(fmt.Sprintf("Expected %d, but got %d", http.StatusTeapot, w.Code))
 		}
@@ -29,7 +30,6 @@ func TestCatchPanicMiddleware(t *testing.T) {
 	})
 
 	t.Run("Catches panic if next panics", func(t *testing.T) {
-
 		fn := func(writer http.ResponseWriter, req *http.Request) {
 			panic("ut oh")
 		}
@@ -37,6 +37,7 @@ func TestCatchPanicMiddleware(t *testing.T) {
 		req := httptest.NewRequest("GET", "/aPath", nil)
 		w := httptest.NewRecorder()
 		log := catchers.Log{}
+
 		PanicMiddleware(log, "", http.HandlerFunc(fn)).ServeHTTP(w, req)
 
 	})

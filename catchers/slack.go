@@ -40,8 +40,8 @@ func (s Slack) HandlePanic(message string) error {
 	if err != nil {
 		return err
 	}
-	res, err := s.httpClient.Do(req)
-	
+	_, err = s.httpClient.Do(req)
+
 	if err != nil {
 		return ErrSlackCallFailed
 	}
