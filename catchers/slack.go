@@ -34,7 +34,6 @@ func NewSlack(webhookurl string) *Slack {
 	}
 }
 
-
 //HandlePanic is the function that will be called in the panic handle middleware if your program panics.
 // It takes a message that will be written to the webhook if your server does panic.
 // HandlePanic can return an error if it cannot marshall the message into JSON, building a request fails, or the call to Slack fails.
@@ -48,9 +47,9 @@ func (s Slack) HandlePanic(message string) error {
 	if err != nil {
 		return err
 	}
-	_, err = s.httpClient.Do(req)
+	res, err := s.httpClient.Do(req)
 
-	if err != nil {
+	if err != nil || res.StatusCode >= 400 {
 		return ErrSlackCallFailed
 	}
 	return err
