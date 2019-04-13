@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-// PanicHander is an interface. It is taken by the PanicMiddleware. All PanicHandlers are responsible for dealing with unexpected
+//PanicHandler is an interface. It is taken by the PanicMiddleware. All PanicHandlers are responsible for dealing with unexpected
 //panics in your server.
 type PanicHandler interface {
 	HandlePanic(message string) error

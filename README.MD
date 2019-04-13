@@ -1,4 +1,5 @@
 # go-panic-catch
+[![GoDoc](https://godoc.org/github.com/MatthewJamesBoyle/go-panic-catch?status.svg)](https://godoc.org/github.com/MatthewJamesBoyle/go-panic-catch)
 
 go-panic-catch is a simple middleware that recovers from panics and enables you to handle panics gracefully.
 
