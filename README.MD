@@ -1,11 +1,11 @@
 # go-panic-catch
 [![GoDoc](https://godoc.org/github.com/MatthewJamesBoyle/go-panic-catch?status.svg)](https://godoc.org/github.com/MatthewJamesBoyle/go-panic-catch)
 
-go-panic-catch is a simple middleware that recovers from panics and enables you to handle panics gracefully.
+go-panic-catch is a simple middleware for golang web servers that recovers from panics and enables you to handle panics gracefully.
 
-To install it:
+To get it:
 
-```https://github.com/matthewjamesboyle/go-panic-catch```
+```go get github.com/matthewjamesboyle/go-panic-catch```
 
 And then to use it:
 ```
@@ -34,7 +34,7 @@ func main() {
 
 ```
 
-It should also work with all the popular web servers such as guerrilla mux and gin.
+It should also work with all the popular web servers such as gorillia mux and gin.
 
 go-panic-catch currently comes with two "catchers" that handle panics.
 * slack catcher - will write a message to slack everytime your web server panics
@@ -51,4 +51,4 @@ Some ideas for other handlers:
 * email everytime there is a panic.
 * increment a prometheus counter.
 
-(contributions appreciated if you want to work on these and contribute them back to this project!)
+(contributions appreciated if you want to work on these)
