@@ -21,6 +21,9 @@ func PanicMiddleware(ph PanicHandler, message string, next http.Handler) http.Ha
 				if err != nil {
 					fmt.Printf("panic handler failed to recover from the panic.")
 				}
+
+				w.WriteHeader(http.StatusInternalServerError)
+				return
 			}
 		}()
 		next.ServeHTTP(w, r)

@@ -2,7 +2,7 @@ package goCatch
 
 import (
 	"fmt"
-	"github.com/MatthewJamesBoyle/go-panic-catch/catchers"
+	"github.com/matthewjamesboyle/go-panic-catch/catchers"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -41,6 +41,23 @@ func TestCatchPanicMiddleware(t *testing.T) {
 		PanicMiddleware(log, "", http.HandlerFunc(fn)).ServeHTTP(w, req)
 
 	})
+
+	t.Run("server returns a 500 if next panics", func(t *testing.T) {
+		fn := func(writer http.ResponseWriter, req *http.Request) {
+			panic("ut oh")
+		}
+
+		req := httptest.NewRequest("GET", "/aPath", nil)
+		w := httptest.NewRecorder()
+		log := catchers.Log{}
+
+		PanicMiddleware(log, "", http.HandlerFunc(fn)).ServeHTTP(w, req)
+		if w.Code != http.StatusInternalServerError {
+			t.Fatalf("Expected to get a 500, but got %d", w.Code)
+		}
+
+	})
+
 	// Todo: add a webhook url below and run this test to watch the panic appear in slack :)
 	//t.Run("test slack handler", func(t *testing.T) {
 	//	fn := func(writer http.ResponseWriter, req *http.Request) {
