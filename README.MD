@@ -9,7 +9,7 @@ To get it:
 
 And then to use it:
 ```
-package awesomeProject
+package main
 
 import (
 	"github.com/matthewjamesboyle/go-panic-catch"
