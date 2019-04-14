@@ -3,6 +3,7 @@ package goCatch
 import (
 	"fmt"
 	"net/http"
+	"os"
 )
 
 //PanicHandler is an interface. It is taken by the PanicMiddleware. All PanicHandlers are responsible for dealing with unexpected
@@ -19,7 +20,7 @@ func PanicMiddleware(ph PanicHandler, message string, next http.Handler) http.Ha
 			if r := recover(); r != nil {
 				err := ph.HandlePanic(message)
 				if err != nil {
-					fmt.Printf("panic handler failed to recover from the panic.")
+					fmt.Fprintln(os.Stderr, "panic handler failed to recover from the panic.")
 				}
 
 				w.WriteHeader(http.StatusInternalServerError)
